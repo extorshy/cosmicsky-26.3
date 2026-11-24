@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "cosmicsky",
+  "version": "${version}",
+  "name": "Cosmic Sky",
+  "description": "Customizable night sky: stars, shooting stars, planets, sun and moon, clouds.",
+  "authors": ["you"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["com.cosmicsky.CosmicSky"] },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

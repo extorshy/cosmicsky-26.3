@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "com.cosmicsky.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["SkyRenderingMixin", "CloudRendererMixin"],
+  "injectors": { "defaultRequire": 0 }
+}
