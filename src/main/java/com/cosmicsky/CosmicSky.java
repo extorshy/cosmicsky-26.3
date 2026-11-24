@@ -1,3 +1,4 @@
+
 package com.cosmicsky;
 
 import com.mojang.blaze3d.platform.InputConstants;
@@ -18,14 +19,16 @@ public class CosmicSky implements ClientModInitializer {
 
         openKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.cosmicsky.open",
-                InputConstants.Type.KEYSYM,
                 InputConstants.KEY_K,
-                KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, "main"))));
+                KeyMapping.Category.register(
+                        Identifier.fromNamespaceAndPath(MOD_ID, "main")
+                )
+        ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (openKey.consumeClick()) {
                 if (client.gui.screen() == null) {
-                    client.setScreen(new CosmicSkyScreen(null));
+                    client.gui.setScreen(new CosmicSkyScreen(null));
                 }
             }
         });
