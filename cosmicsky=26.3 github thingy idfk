@@ -1,0 +1,36 @@
+name: build
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: current
+      - name: Build
+        id: build
+        continue-on-error: true
+        run: gradle build --no-daemon --stacktrace 2>&1 | tee build-log.txt; exit ${PIPESTATUS[0]}
+      - name: Dump real 26.3 API (always runs)
+        continue-on-error: true
+        run: bash tools/dump-api.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-dump-and-log
+          path: |
+            api-dump
+            build-log.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cosmicsky-jar
+          path: build/libs/cosmicsky-1.0.0.jar
+          if-no-files-found: warn
+      - name: Fail if build failed
+        if: steps.build.outcome == 'failure'
+        run: exit 1
